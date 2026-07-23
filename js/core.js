@@ -339,6 +339,14 @@
     const seen = new Set();
 
     for (const question of questions) {
+      if (
+        !question ||
+        typeof question !== "object" ||
+        typeof question.id !== "string"
+      ) {
+        continue;
+      }
+
       if (seen.has(question.id)) {
         errors.push(`題目識別碼重複：${question.id}`);
       }

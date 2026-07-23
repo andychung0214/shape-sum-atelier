@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>形算小工房｜瀏覽器整合冒煙測試</title>
+    <style>
+      body {
+        margin: 0;
+        color: #272923;
+        background: #f6f1e5;
+        font-family: "Microsoft JhengHei", sans-serif;
+      }
+
+      header {
+        padding: 1rem;
+        border-bottom: 1px solid #272923;
+      }
+
+      h1 {
+        margin: 0 0 0.5rem;
+        font-size: 1.25rem;
+      }
+
+      [data-status] {
+        margin: 0;
+        font-weight: 700;
+      }
+
+      [data-status="running"] {
+        color: #64645d;
+      }
+
+      [data-status="passed"] {
+        color: #294a8a;
+      }
+
+      [data-status="failed"] {
+        color: #8f2944;
+      }
+
+      iframe {
+        width: 100%;
+        height: calc(100vh - 6rem);
+        border: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>瀏覽器整合冒煙測試</h1>
+      <p id="result" data-status="running" role="status">
+        執行首次繪製、翻牌、篩選與重新載入測試中……
+      </p>
+    </header>
+
+    <iframe
+      id="frame"
+      src="../index.html"
+      title="形算小工房測試頁面"
+    ></iframe>
+
+    <script>
+      (function runBrowserSmokeTest() {
+        "use strict";
+
+        const frame = document.querySelector("#frame");
+        const result = document.querySelector("#result");
+        let phase = 0;
+        let storageAvailable = false;
+
+        function assert(condition, message) {
+          if (!condition) throw new Error(message);
+        }
+
+        function finish(status, message) {
+          result.dataset.status = status;
+          result.textContent = message;
+        }
+
+        function canUseStorage(testWindow) {
+          const key = "shape-sum-atelier-smoke-probe";
+          try {
+            testWindow.localStorage.setItem(key, "1");
+            testWindow.localStorage.removeItem(key);
+            return true;
+          } catch (_error) {
+            return false;
+          }
+        }
+
+        frame.addEventListener("load", () => {
+          try {
+            const testWindow = frame.contentWindow;
+            const testDocument = testWindow.document;
+            testWindow.confirm = () => true;
+
+            if (phase === 0) {
+              storageAvailable = canUseStorage(testWindow);
+              testDocument.querySelector("#reset-button").click();
+
+              assert(
+                testDocument.querySelectorAll(".question-card").length === 36,
+                "首次繪製不是 36 題",
+              );
+
+              const firstAnswer = testDocument.querySelector(".answer-flip");
+              assert(
+                firstAnswer.getAttribute("aria-expanded") === "false",
+                "答案初始狀態不是隱藏",
+              );
+              firstAnswer.click();
+              assert(
+                firstAnswer.getAttribute("aria-expanded") === "true",
+                "按下後沒有揭曉答案",
+              );
+
+              const difficulty =
+                testDocument.querySelector("#difficulty-filter");
+              difficulty.value = "easy";
+              difficulty.dispatchEvent(new Event("change", { bubbles: true }));
+
+              const operator =
+                testDocument.querySelector("#operator-filter");
+              operator.value = "add";
+              operator.dispatchEvent(new Event("change", { bubbles: true }));
+
+              assert(
+                testDocument.querySelectorAll(".question-card").length === 6,
+                "初階加法篩選不是 6 題",
+              );
+
+              phase = 1;
+              frame.contentWindow.location.reload();
+              return;
+            }
+
+            if (phase === 1) {
+              if (storageAvailable) {
+                assert(
+                  testDocument.querySelector("#difficulty-filter").value ===
+                    "easy",
+                  "重新載入後沒有保留難度",
+                );
+                assert(
+                  testDocument.querySelector("#operator-filter").value ===
+                    "add",
+                  "重新載入後沒有保留運算",
+                );
+                assert(
+                  testDocument
+                    .querySelector(
+                      '[data-question-id="easy-add-01"].answer-flip',
+                    )
+                    .getAttribute("aria-expanded") === "true",
+                  "重新載入後沒有保留翻牌狀態",
+                );
+              } else {
+                assert(
+                  testDocument.querySelectorAll(".question-card").length ===
+                    36,
+                  "停用儲存時重新載入失敗",
+                );
+              }
+
+              testDocument.querySelector("#reset-button").click();
+              phase = 2;
+              finish(
+                "passed",
+                storageAvailable
+                  ? "通過：首次繪製、翻牌、篩選與重新載入保存均正確。"
+                  : "通過：首次繪製、翻牌、篩選與無儲存重新載入均正確。",
+              );
+            }
+          } catch (error) {
+            finish("failed", `失敗：${error.message}`);
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>

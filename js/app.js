@@ -87,7 +87,7 @@
           <span>第 ${String(questionNumber).padStart(2, "0")} 題</span>
           <span>${difficultyLabels[question.difficulty]} · ${operatorLabels[question.operator]}</span>
         </header>
-        <div class="equation" aria-label="第 ${questionNumber} 題，${operatorLabels[question.operator]}圖形題">
+        <div class="equation" role="group" aria-label="第 ${questionNumber} 題，${operatorLabels[question.operator]}圖形題">
           <div class="shape-box shape-box--problem">
             ${core.renderShape(question.left, { label: "左側圖形" })}
           </div>

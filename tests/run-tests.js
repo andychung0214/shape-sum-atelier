@@ -57,6 +57,11 @@ test("完整題庫通過一致性驗證", () => {
   assert.deepEqual(core.validateBank(core.QUESTIONS), []);
 });
 
+test("題庫驗證會回報完全損壞的題目而不崩潰", () => {
+  assert.doesNotThrow(() => core.validateBank([null, "損壞題目"]));
+  assert.ok(core.validateBank([null, "損壞題目"]).length >= 2);
+});
+
 test("各難度都包含加法與減法", () => {
   for (const difficulty of ["easy", "medium", "hard"]) {
     assert.ok(
@@ -154,6 +159,8 @@ test("進度只計算目前題目中的已揭曉題目", () => {
 test("HTML 提供主要內容、篩選、題庫與無 JavaScript 提示", () => {
   const indexHtml = readProject("index.html");
   assert.match(indexHtml, /<main/);
+  assert.match(indexHtml, /href="#main-content"/);
+  assert.match(indexHtml, /id="main-content"[^>]*tabindex="-1"/);
   assert.match(indexHtml, /id="question-grid"/);
   assert.match(indexHtml, /id="difficulty-filter"/);
   assert.match(indexHtml, /id="operator-filter"/);
@@ -173,6 +180,7 @@ test("腳本依核心、狀態、應用程式的順序載入", () => {
 test("應用程式同步翻牌無障礙狀態並使用版本化儲存鍵", () => {
   const appJs = readProject("js/app.js");
   assert.match(appJs, /aria-expanded/);
+  assert.match(appJs, /class="equation"\s+role="group"/);
   assert.match(appJs, /shape-sum-atelier-state-v1/);
   assert.match(appJs, /validateBank/);
   assert.match(appJs, /try\s*{/);
@@ -239,6 +247,15 @@ test("計畫與測試文件包含驗收及無障礙內容", () => {
   assert.match(readProject("docs/PLAN.md"), /風險/);
   assert.match(readProject("docs/TEST-PLAN.md"), /無障礙/);
   assert.match(readProject("docs/TEST-PLAN.md"), /行動裝置/);
+});
+
+test("提供可執行的瀏覽器整合冒煙測試", () => {
+  const smokeTest = readProject("tests/browser-smoke.html");
+  assert.match(smokeTest, /<iframe[^>]+src="\.\.\/index\.html"/);
+  assert.match(smokeTest, /data-status/);
+  assert.match(smokeTest, /aria-expanded/);
+  assert.match(smokeTest, /difficulty-filter/);
+  assert.match(smokeTest, /frame\.contentWindow\.location\.reload/);
 });
 
 process.on("exit", () => {

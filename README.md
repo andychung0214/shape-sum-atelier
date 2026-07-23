@@ -62,7 +62,9 @@ shape-sum-atelier/
 │   ├── core.js              # 圖形片段、集合運算與題庫
 │   ├── state.js             # 篩選、翻牌狀態與進度
 │   └── app.js               # DOM 與 localStorage 整合
-├── tests/run-tests.js       # 零相依自動測試
+├── tests/
+│   ├── run-tests.js         # 零相依 Node.js 自動測試
+│   └── browser-smoke.html   # 真實首頁瀏覽器整合冒煙測試
 ├── docs/
 │   ├── PLAN.md
 │   ├── ART-DIRECTION.md
@@ -81,6 +83,14 @@ node tests/run-tests.js
 ```
 
 測試內容包括集合運算、題庫有效性、SVG 輸出、狀態復原、篩選、進度、HTML 契約、RWD 樣式契約與文件完整性。完整的瀏覽器、行動裝置及無障礙檢查項目位於 [docs/TEST-PLAN.md](docs/TEST-PLAN.md)。
+
+瀏覽器整合測試可直接開啟 `tests/browser-smoke.html`，或在啟動本機靜態伺服器後開啟：
+
+```text
+http://localhost:8080/tests/browser-smoke.html
+```
+
+頁面會載入真正的 `index.html`，自動檢查首次繪製、翻牌、篩選與重新載入，完成後在上方顯示「通過」或明確錯誤。
 
 ## 靜態網站
 
@@ -105,4 +115,3 @@ node tests/run-tests.js
 ## 授權說明
 
 程式碼與文件採 [MIT License](LICENSE) 授權。專案不包含參考截圖本身，也未複製其中的攝影內容、人物或品牌文字。
-
