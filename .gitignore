@@ -1,1 +1,19 @@
 .worktrees/
+
+# 作業系統與編輯器
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# 執行與測試產物
+*.log
+coverage/
+
+# 秘密資料與憑證
+.env
+.env.*
+*.pem
+*.key
+*.p12
+*.pfx

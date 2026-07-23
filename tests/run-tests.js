@@ -199,6 +199,48 @@ test("樣式表提供手機、平板、桌機與減少動態效果規則", () =>
   assert.match(stylesCss, /\.answer-flip\[aria-expanded="true"\]/);
 });
 
+test("必要專案文件皆存在", () => {
+  for (const relativePath of [
+    "README.md",
+    "docs/PLAN.md",
+    "docs/ART-DIRECTION.md",
+    "docs/TEST-PLAN.md",
+    "CONTRIBUTING.md",
+    "LICENSE",
+    ".gitignore",
+  ]) {
+    assert.equal(
+      fs.existsSync(path.join(__dirname, "..", relativePath)),
+      true,
+      `${relativePath} 應存在`,
+    );
+  }
+});
+
+test("README 涵蓋所有必要交付說明", () => {
+  const readme = readProject("README.md");
+  for (const heading of [
+    "遊戲介紹",
+    "特色",
+    "操作方式",
+    "安裝與執行",
+    "專案結構",
+    "測試方式",
+    "靜態網站",
+    "已知限制",
+    "授權說明",
+  ]) {
+    assert.match(readme, new RegExp(heading));
+  }
+});
+
+test("計畫與測試文件包含驗收及無障礙內容", () => {
+  assert.match(readProject("docs/PLAN.md"), /驗收條件/);
+  assert.match(readProject("docs/PLAN.md"), /風險/);
+  assert.match(readProject("docs/TEST-PLAN.md"), /無障礙/);
+  assert.match(readProject("docs/TEST-PLAN.md"), /行動裝置/);
+});
+
 process.on("exit", () => {
   console.log(`\n${passed} 項通過，${failed} 項失敗`);
   if (failed > 0) process.exitCode = 1;
