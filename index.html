@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="形算小工房是為孩子設計的圖形加減翻牌題庫，直接觀察、推理，再揭曉答案。"
+    />
+    <meta name="theme-color" content="#f6f1e5" />
+    <title>形算小工房｜兒童圖形運算題庫</title>
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#question-grid">跳到題庫</a>
+
+    <div class="desk">
+      <main class="paper-sheet" id="main-content">
+        <header class="masthead">
+          <div class="masthead__copy">
+            <p class="eyebrow">SHAPE STUDY · NO. 001</p>
+            <h1>形算小工房</h1>
+            <p class="masthead__lead">
+              看看圖形怎麼組合。先在心裡畫一次，再翻開答案。
+            </p>
+          </div>
+          <div class="maker-mark" aria-label="適合六歲以上">
+            <span>六歲＋</span>
+            <small>觀察 · 推理</small>
+          </div>
+        </header>
+
+        <section class="study-status" aria-labelledby="status-heading">
+          <div>
+            <p class="section-kicker">今日練習紙</p>
+            <h2 id="status-heading">慢慢看，找到線條的變化</h2>
+          </div>
+          <dl class="status-list">
+            <div>
+              <dt>目前題數</dt>
+              <dd id="visible-count">0</dd>
+            </div>
+            <div>
+              <dt>已看答案</dt>
+              <dd id="explored-count">0</dd>
+            </div>
+            <div>
+              <dt>探索進度</dt>
+              <dd><span id="progress-percent">0</span><small>%</small></dd>
+            </div>
+          </dl>
+          <div
+            class="progress-track"
+            role="progressbar"
+            aria-label="目前篩選題目的探索進度"
+            aria-valuemin="0"
+            aria-valuemax="100"
+            aria-valuenow="0"
+          >
+            <span id="progress-fill"></span>
+          </div>
+        </section>
+
+        <section class="tool-strip" aria-labelledby="filter-heading">
+          <div class="tool-strip__heading">
+            <p class="section-kicker">挑一張練習紙</p>
+            <h2 id="filter-heading">題目篩選</h2>
+          </div>
+
+          <div class="field">
+            <label for="difficulty-filter">難度</label>
+            <select id="difficulty-filter">
+              <option value="all">全部難度</option>
+              <option value="easy">初階</option>
+              <option value="medium">中階</option>
+              <option value="hard">進階</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="operator-filter">運算</label>
+            <select id="operator-filter">
+              <option value="all">加減都練習</option>
+              <option value="add">只看加法</option>
+              <option value="subtract">只看減法</option>
+            </select>
+          </div>
+
+          <div class="tool-actions">
+            <button id="shuffle-button" class="paper-button" type="button">
+              換個順序
+            </button>
+            <button
+              id="reset-button"
+              class="paper-button paper-button--quiet"
+              type="button"
+            >
+              清除進度
+            </button>
+          </div>
+        </section>
+
+        <div
+          id="app-message"
+          class="app-message"
+          role="alert"
+          hidden
+        ></div>
+
+        <section aria-labelledby="questions-heading">
+          <div class="question-heading">
+            <div>
+              <p class="section-kicker">圖形觀察題</p>
+              <h2 id="questions-heading">按一下問號，翻開答案</h2>
+            </div>
+            <p class="ink-note">再按一次，就會蓋回去。</p>
+          </div>
+
+          <div id="question-grid" class="question-grid"></div>
+
+          <div id="empty-state" class="empty-state" hidden>
+            <p>這張練習紙沒有符合的題目。</p>
+            <button id="show-all-button" class="paper-button" type="button">
+              顯示全部題目
+            </button>
+          </div>
+        </section>
+
+        <footer class="paper-footer">
+          <p>不用計時。看懂一條線，也是一個進步。</p>
+          <p class="utility-copy">可離線使用 · 進度只保存在這台裝置</p>
+        </footer>
+      </main>
+    </div>
+
+    <noscript>
+      <p class="noscript-message">
+        形算小工房需要 JavaScript 才能產生題目與翻開答案。
+      </p>
+    </noscript>
+
+    <script src="js/core.js"></script>
+    <script src="js/state.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>

@@ -1,6 +1,8 @@
 "use strict";
 
 const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const path = require("node:path");
 
 let passed = 0;
 let failed = 0;
@@ -15,6 +17,10 @@ function test(name, callback) {
     console.error(`✗ ${name}`);
     console.error(`  ${error.message}`);
   }
+}
+
+function readProject(relativePath) {
+  return fs.readFileSync(path.join(__dirname, "..", relativePath), "utf8");
 }
 
 const core = require("../js/core.js");
@@ -143,6 +149,33 @@ test("進度只計算目前題目中的已揭曉題目", () => {
     total: 0,
     percent: 0,
   });
+});
+
+test("HTML 提供主要內容、篩選、題庫與無 JavaScript 提示", () => {
+  const indexHtml = readProject("index.html");
+  assert.match(indexHtml, /<main/);
+  assert.match(indexHtml, /id="question-grid"/);
+  assert.match(indexHtml, /id="difficulty-filter"/);
+  assert.match(indexHtml, /id="operator-filter"/);
+  assert.match(indexHtml, /<noscript>/);
+});
+
+test("腳本依核心、狀態、應用程式的順序載入", () => {
+  const indexHtml = readProject("index.html");
+  const coreIndex = indexHtml.indexOf('src="js/core.js"');
+  const stateIndex = indexHtml.indexOf('src="js/state.js"');
+  const appIndex = indexHtml.indexOf('src="js/app.js"');
+  assert.ok(coreIndex > -1);
+  assert.ok(coreIndex < stateIndex);
+  assert.ok(stateIndex < appIndex);
+});
+
+test("應用程式同步翻牌無障礙狀態並使用版本化儲存鍵", () => {
+  const appJs = readProject("js/app.js");
+  assert.match(appJs, /aria-expanded/);
+  assert.match(appJs, /shape-sum-atelier-state-v1/);
+  assert.match(appJs, /validateBank/);
+  assert.match(appJs, /try\s*{/);
 });
 
 process.on("exit", () => {
