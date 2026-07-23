@@ -84,13 +84,15 @@ node tests/run-tests.js
 
 測試內容包括集合運算、題庫有效性、SVG 輸出、狀態復原、篩選、進度、HTML 契約、RWD 樣式契約與文件完整性。完整的瀏覽器、行動裝置及無障礙檢查項目位於 [docs/TEST-PLAN.md](docs/TEST-PLAN.md)。
 
-瀏覽器整合測試可直接開啟 `tests/browser-smoke.html`，或在啟動本機靜態伺服器後開啟：
+瀏覽器冒煙測試必須透過本機 HTTP 或已部署的靜態網站執行，以確保測試頁面可依同源政策讀取真正首頁。啟動本機靜態伺服器後開啟：
 
 ```text
 http://localhost:8080/tests/browser-smoke.html
 ```
 
 頁面會載入真正的 `index.html`，自動檢查首次繪製、翻牌、篩選與重新載入，完成後在上方顯示「通過」或明確錯誤。
+
+不要以 `file://` 直接開啟 `tests/browser-smoke.html`；部分瀏覽器會將兩個本機檔案視為不同的不透明來源。直接檔案模式請改為人工開啟專案根目錄的 `index.html` 驗收。
 
 ## 靜態網站
 

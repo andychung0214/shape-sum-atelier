@@ -251,11 +251,17 @@ test("計畫與測試文件包含驗收及無障礙內容", () => {
 
 test("提供可執行的瀏覽器整合冒煙測試", () => {
   const smokeTest = readProject("tests/browser-smoke.html");
+  const readme = readProject("README.md");
   assert.match(smokeTest, /<iframe[^>]+src="\.\.\/index\.html"/);
   assert.match(smokeTest, /data-status/);
   assert.match(smokeTest, /aria-expanded/);
   assert.match(smokeTest, /difficulty-filter/);
+  assert.match(
+    smokeTest,
+    /localStorage\.removeItem\(\s*"shape-sum-atelier-state-v1"/,
+  );
   assert.match(smokeTest, /frame\.contentWindow\.location\.reload/);
+  assert.match(readme, /冒煙測試必須透過本機 HTTP/);
 });
 
 process.on("exit", () => {

@@ -97,8 +97,17 @@
 
             if (phase === 0) {
               storageAvailable = canUseStorage(testWindow);
-              testDocument.querySelector("#reset-button").click();
+              if (storageAvailable) {
+                testWindow.localStorage.removeItem(
+                  "shape-sum-atelier-state-v1",
+                );
+              }
+              phase = 1;
+              frame.contentWindow.location.reload();
+              return;
+            }
 
+            if (phase === 1) {
               assert(
                 testDocument.querySelectorAll(".question-card").length === 36,
                 "首次繪製不是 36 題",
@@ -118,24 +127,28 @@
               const difficulty =
                 testDocument.querySelector("#difficulty-filter");
               difficulty.value = "easy";
-              difficulty.dispatchEvent(new Event("change", { bubbles: true }));
+              difficulty.dispatchEvent(
+                new testWindow.Event("change", { bubbles: true }),
+              );
 
               const operator =
                 testDocument.querySelector("#operator-filter");
               operator.value = "add";
-              operator.dispatchEvent(new Event("change", { bubbles: true }));
+              operator.dispatchEvent(
+                new testWindow.Event("change", { bubbles: true }),
+              );
 
               assert(
                 testDocument.querySelectorAll(".question-card").length === 6,
                 "初階加法篩選不是 6 題",
               );
 
-              phase = 1;
+              phase = 2;
               frame.contentWindow.location.reload();
               return;
             }
 
-            if (phase === 1) {
+            if (phase === 2) {
               if (storageAvailable) {
                 assert(
                   testDocument.querySelector("#difficulty-filter").value ===
@@ -164,7 +177,7 @@
               }
 
               testDocument.querySelector("#reset-button").click();
-              phase = 2;
+              phase = 3;
               finish(
                 "passed",
                 storageAvailable
