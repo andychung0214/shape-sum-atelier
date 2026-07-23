@@ -178,6 +178,27 @@ test("應用程式同步翻牌無障礙狀態並使用版本化儲存鍵", () =>
   assert.match(appJs, /try\s*{/);
 });
 
+test("樣式表定義核准色票與翻牌時間", () => {
+  const stylesCss = readProject("css/styles.css");
+  for (const token of [
+    "--paper",
+    "--ink-red",
+    "--ink-blue",
+    "--focus",
+    "--flip-duration",
+  ]) {
+    assert.match(stylesCss, new RegExp(token));
+  }
+});
+
+test("樣式表提供手機、平板、桌機與減少動態效果規則", () => {
+  const stylesCss = readProject("css/styles.css");
+  assert.match(stylesCss, /prefers-reduced-motion/);
+  assert.match(stylesCss, /@media[^{]*min-width:\s*48rem/);
+  assert.match(stylesCss, /@media[^{]*min-width:\s*75rem/);
+  assert.match(stylesCss, /\.answer-flip\[aria-expanded="true"\]/);
+});
+
 process.on("exit", () => {
   console.log(`\n${passed} 項通過，${failed} 項失敗`);
   if (failed > 0) process.exitCode = 1;
