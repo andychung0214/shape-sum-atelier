@@ -148,6 +148,31 @@
                 new testWindow.Event("change", { bubbles: true }),
               );
 
+              operator.value = "all";
+              operator.dispatchEvent(
+                new testWindow.Event("change", { bubbles: true }),
+              );
+
+              assert(
+                testDocument.querySelectorAll(".question-card").length === 20,
+                "挑戰難度篩選不是 20 題",
+              );
+
+              operator.value = "subtract";
+              operator.dispatchEvent(
+                new testWindow.Event("change", { bubbles: true }),
+              );
+
+              assert(
+                testDocument.querySelectorAll(".question-card").length === 10,
+                "挑戰減法篩選不是 10 題",
+              );
+
+              operator.value = "add";
+              operator.dispatchEvent(
+                new testWindow.Event("change", { bubbles: true }),
+              );
+
               assert(
                 testDocument.querySelectorAll(".question-card").length === 10,
                 "挑戰加法篩選不是 10 題",

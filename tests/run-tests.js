@@ -301,7 +301,10 @@ test("提供可執行的瀏覽器整合冒煙測試", () => {
   assert.match(smokeTest, /difficulty-filter/);
   assert.match(smokeTest, /value\s*=\s*"challenge"/);
   assert.match(smokeTest, /length\s*===\s*80/);
+  assert.match(smokeTest, /length\s*===\s*20/);
   assert.match(smokeTest, /length\s*===\s*10/);
+  assert.match(smokeTest, /operator\.value\s*=\s*"subtract"/);
+  assert.match(smokeTest, /挑戰減法篩選不是 10 題/);
   assert.match(
     smokeTest,
     /localStorage\.removeItem\(\s*"shape-sum-atelier-state-v1"/,
