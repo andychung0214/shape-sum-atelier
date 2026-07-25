@@ -48,9 +48,31 @@ test("未知運算會回報錯誤", () => {
   );
 });
 
-test("題庫至少提供十二種圖形片段與三十道題目", () => {
+test("題庫至少提供十二種圖形片段", () => {
   assert.ok(Object.keys(core.SEGMENTS).length >= 12);
-  assert.ok(core.QUESTIONS.length >= 30);
+});
+
+test("題庫提供四個難度共八十題", () => {
+  assert.equal(core.QUESTIONS.length, 80);
+});
+
+test("每個難度各有二十題且加減法各十題", () => {
+  for (const difficulty of ["easy", "medium", "hard", "challenge"]) {
+    const questions = core.QUESTIONS.filter(
+      (question) => question.difficulty === difficulty,
+    );
+    assert.equal(questions.length, 20, `${difficulty} 題數`);
+    assert.equal(
+      questions.filter((question) => question.operator === "add").length,
+      10,
+      `${difficulty} 加法題數`,
+    );
+    assert.equal(
+      questions.filter((question) => question.operator === "subtract").length,
+      10,
+      `${difficulty} 減法題數`,
+    );
+  }
 });
 
 test("完整題庫通過一致性驗證", () => {
@@ -63,7 +85,7 @@ test("題庫驗證會回報完全損壞的題目而不崩潰", () => {
 });
 
 test("各難度都包含加法與減法", () => {
-  for (const difficulty of ["easy", "medium", "hard"]) {
+  for (const difficulty of ["easy", "medium", "hard", "challenge"]) {
     assert.ok(
       core.QUESTIONS.some(
         (question) =>
