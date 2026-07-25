@@ -109,8 +109,8 @@
 
             if (phase === 1) {
               assert(
-                testDocument.querySelectorAll(".question-card").length === 36,
-                "首次繪製不是 36 題",
+                testDocument.querySelectorAll(".question-card").length === 80,
+                "首次繪製不是 80 題",
               );
 
               const firstAnswer = testDocument.querySelector(".answer-flip");
@@ -139,8 +139,27 @@
               );
 
               assert(
-                testDocument.querySelectorAll(".question-card").length === 6,
-                "初階加法篩選不是 6 題",
+                testDocument.querySelectorAll(".question-card").length === 10,
+                "初階加法篩選不是 10 題",
+              );
+
+              difficulty.value = "challenge";
+              difficulty.dispatchEvent(
+                new testWindow.Event("change", { bubbles: true }),
+              );
+
+              assert(
+                testDocument.querySelectorAll(".question-card").length === 10,
+                "挑戰加法篩選不是 10 題",
+              );
+
+              const challengeAnswer = testDocument.querySelector(
+                '[data-question-id="challenge-add-01"].answer-flip',
+              );
+              challengeAnswer.click();
+              assert(
+                challengeAnswer.getAttribute("aria-expanded") === "true",
+                "挑戰題按下後沒有揭曉答案",
               );
 
               phase = 2;
@@ -152,7 +171,7 @@
               if (storageAvailable) {
                 assert(
                   testDocument.querySelector("#difficulty-filter").value ===
-                    "easy",
+                    "challenge",
                   "重新載入後沒有保留難度",
                 );
                 assert(
@@ -161,9 +180,13 @@
                   "重新載入後沒有保留運算",
                 );
                 assert(
+                  testDocument.querySelectorAll(".question-card").length === 10,
+                  "重新載入後挑戰加法篩選不是 10 題",
+                );
+                assert(
                   testDocument
                     .querySelector(
-                      '[data-question-id="easy-add-01"].answer-flip',
+                      '[data-question-id="challenge-add-01"].answer-flip',
                     )
                     .getAttribute("aria-expanded") === "true",
                   "重新載入後沒有保留翻牌狀態",
@@ -171,7 +194,7 @@
               } else {
                 assert(
                   testDocument.querySelectorAll(".question-card").length ===
-                    36,
+                    80,
                   "停用儲存時重新載入失敗",
                 );
               }

@@ -12,7 +12,13 @@
   "use strict";
 
   const STORAGE_VERSION = 1;
-  const DIFFICULTIES = new Set(["all", "easy", "medium", "hard"]);
+  const DIFFICULTIES = new Set([
+    "all",
+    "easy",
+    "medium",
+    "hard",
+    "challenge",
+  ]);
   const OPERATORS = new Set(["all", "add", "subtract"]);
 
   function createDefaultState() {

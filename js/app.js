@@ -9,6 +9,7 @@
     easy: "初階",
     medium: "中階",
     hard: "進階",
+    challenge: "挑戰",
   };
 
   const operatorLabels = {
