@@ -52,24 +52,32 @@ test("題庫至少提供十二種圖形片段", () => {
   assert.ok(Object.keys(core.SEGMENTS).length >= 12);
 });
 
-test("題庫提供四個難度共八十題", () => {
-  assert.equal(core.QUESTIONS.length, 80);
+test("題庫提供五個難度共一百十六題", () => {
+  assert.equal(core.QUESTIONS.length, 116);
 });
 
-test("每個難度各有二十題且加減法各十題", () => {
-  for (const difficulty of ["easy", "medium", "hard", "challenge"]) {
+test("每個難度都有指定題數與加減法分布", () => {
+  const expectedDistribution = {
+    easy: { total: 26, add: 13, subtract: 13 },
+    medium: { total: 26, add: 13, subtract: 13 },
+    hard: { total: 26, add: 13, subtract: 13 },
+    challenge: { total: 26, add: 13, subtract: 13 },
+    expert: { total: 12, add: 6, subtract: 6 },
+  };
+
+  for (const [difficulty, expected] of Object.entries(expectedDistribution)) {
     const questions = core.QUESTIONS.filter(
       (question) => question.difficulty === difficulty,
     );
-    assert.equal(questions.length, 20, `${difficulty} 題數`);
+    assert.equal(questions.length, expected.total, `${difficulty} 題數`);
     assert.equal(
       questions.filter((question) => question.operator === "add").length,
-      10,
+      expected.add,
       `${difficulty} 加法題數`,
     );
     assert.equal(
       questions.filter((question) => question.operator === "subtract").length,
-      10,
+      expected.subtract,
       `${difficulty} 減法題數`,
     );
   }
@@ -85,7 +93,13 @@ test("題庫驗證會回報完全損壞的題目而不崩潰", () => {
 });
 
 test("各難度都包含加法與減法", () => {
-  for (const difficulty of ["easy", "medium", "hard", "challenge"]) {
+  for (const difficulty of [
+    "easy",
+    "medium",
+    "hard",
+    "challenge",
+    "expert",
+  ]) {
     assert.ok(
       core.QUESTIONS.some(
         (question) =>
@@ -166,7 +180,7 @@ test("篩選同時套用難度與運算類型", () => {
   );
 });
 
-test("挑戰難度可正規化、篩選並保留二十題", () => {
+test("挑戰難度可正規化、篩選並保留二十六題", () => {
   const normalized = stateApi.normalizeState(
     {
       version: stateApi.STORAGE_VERSION,
@@ -181,7 +195,7 @@ test("挑戰難度可正規化、篩選並保留二十題", () => {
   assert.deepEqual(normalized.revealedIds, ["challenge-add-01"]);
   assert.equal(
     stateApi.filterQuestions(core.QUESTIONS, normalized).length,
-    20,
+    26,
   );
 });
 

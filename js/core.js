@@ -634,6 +634,42 @@
       ],
       ["right", "arcLeft", "diagDown", "center"],
     ],
+    ["easy-add-11", "easy", "add", ["top", "middleH"], ["bottom"]],
+    ["easy-add-12", "easy", "add", ["left", "middleV"], ["right"]],
+    ["easy-add-13", "easy", "add", ["diagDown"], ["center"]],
+    ["easy-subtract-11", "easy", "subtract", ["top", "middleH", "bottom"], ["middleH"]],
+    ["easy-subtract-12", "easy", "subtract", ["left", "middleV", "right"], ["right"]],
+    ["easy-subtract-13", "easy", "subtract", ["diagDown", "center"], ["center"]],
+    ["medium-add-11", "medium", "add", ["top", "left", "middleH"], ["bottom", "left"]],
+    ["medium-add-12", "medium", "add", ["arcLeft", "bowlLeft", "center"], ["arcRight", "bowlLeft", "center"]],
+    ["medium-add-13", "medium", "add", ["roofLeft", "middleV", "diagDown"], ["roofRight", "middleV", "diagUp"]],
+    ["medium-subtract-11", "medium", "subtract", ["top", "right", "bottom", "middleH"], ["right", "middleH"]],
+    ["medium-subtract-12", "medium", "subtract", ["arcLeft", "arcRight", "bowlLeft", "bowlRight"], ["arcRight", "bowlLeft"]],
+    ["medium-subtract-13", "medium", "subtract", ["roofLeft", "roofRight", "middleV", "center"], ["middleV"]],
+    ["hard-add-11", "hard", "add", ["top", "right", "bottom", "diagDown"], ["left", "middleH", "diagUp", "center"]],
+    ["hard-add-12", "hard", "add", ["arcLeft", "arcRight", "bowlLeft", "center"], ["arcRight", "bowlRight", "diagUp", "middleV"]],
+    ["hard-add-13", "hard", "add", ["roofLeft", "roofRight", "left", "middleH"], ["right", "bottom", "diagDown", "center"]],
+    ["hard-subtract-11", "hard", "subtract", ["top", "right", "bottom", "left", "diagDown", "middleV", "center"], ["right", "diagDown", "center"]],
+    ["hard-subtract-12", "hard", "subtract", ["arcLeft", "arcRight", "bowlLeft", "bowlRight", "middleH", "diagUp"], ["arcRight", "bowlLeft"]],
+    ["hard-subtract-13", "hard", "subtract", ["roofLeft", "roofRight", "top", "bottom", "middleV", "diagDown", "center"], ["roofLeft", "middleV", "center"]],
+    ["challenge-add-11", "challenge", "add", ["top", "right", "bottom", "left", "diagDown", "center"], ["top", "right", "middleH", "diagUp", "center"]],
+    ["challenge-add-12", "challenge", "add", ["arcLeft", "arcRight", "bowlLeft", "bowlRight", "middleV", "center"], ["arcLeft", "bowlLeft", "middleH", "diagDown", "center"]],
+    ["challenge-add-13", "challenge", "add", ["roofLeft", "roofRight", "left", "right", "middleV", "diagUp"], ["roofLeft", "right", "bottom", "middleH", "diagDown", "diagUp"]],
+    ["challenge-subtract-11", "challenge", "subtract", ["top", "right", "bottom", "left", "middleH", "middleV", "diagDown", "diagUp", "center"], ["middleH", "diagUp", "center"]],
+    ["challenge-subtract-12", "challenge", "subtract", ["arcLeft", "arcRight", "bowlLeft", "bowlRight", "middleH", "middleV", "diagDown", "diagUp", "center"], ["arcLeft", "bowlRight", "middleV", "diagUp"]],
+    ["challenge-subtract-13", "challenge", "subtract", ["roofLeft", "roofRight", "top", "right", "bottom", "left", "middleH", "middleV", "center"], ["roofRight", "right", "middleH", "center"]],
+    ["expert-add-01", "expert", "add", ["top", "right", "bottom", "left", "middleH", "diagDown", "center"], ["top", "right", "middleV", "diagUp", "center", "roofLeft"]],
+    ["expert-add-02", "expert", "add", ["arcLeft", "arcRight", "bowlLeft", "bowlRight", "middleH", "middleV", "center"], ["arcLeft", "bowlLeft", "diagDown", "diagUp", "center", "roofRight"]],
+    ["expert-add-03", "expert", "add", ["roofLeft", "roofRight", "left", "right", "middleV", "diagDown", "center"], ["roofLeft", "right", "bottom", "middleH", "diagUp", "center", "bowlRight"]],
+    ["expert-add-04", "expert", "add", ["top", "bottom", "diagDown", "diagUp", "middleH", "middleV", "center"], ["top", "bottom", "left", "right", "middleH", "roofLeft", "roofRight"]],
+    ["expert-add-05", "expert", "add", ["arcLeft", "arcRight", "bowlLeft", "middleH", "middleV", "center", "diagDown"], ["arcLeft", "arcRight", "bowlRight", "middleH", "roofLeft", "roofRight", "diagUp"]],
+    ["expert-add-06", "expert", "add", ["top", "right", "bowlRight", "diagDown", "diagUp", "center", "roofLeft"], ["top", "right", "bowlLeft", "diagDown", "middleV", "center", "roofRight"]],
+    ["expert-subtract-01", "expert", "subtract", ["top", "right", "bottom", "left", "middleH", "middleV", "diagDown", "diagUp", "roofLeft", "center"], ["top", "diagDown", "roofLeft", "center"]],
+    ["expert-subtract-02", "expert", "subtract", ["arcLeft", "arcRight", "bowlLeft", "bowlRight", "middleH", "middleV", "diagDown", "diagUp", "center", "roofRight"], ["arcRight", "bowlLeft", "middleV", "center"]],
+    ["expert-subtract-03", "expert", "subtract", ["roofLeft", "roofRight", "top", "right", "bottom", "left", "middleH", "middleV", "diagDown", "center", "bowlRight"], ["roofLeft", "right", "middleH", "center", "bowlRight"]],
+    ["expert-subtract-04", "expert", "subtract", ["top", "bottom", "left", "right", "arcLeft", "arcRight", "bowlLeft", "bowlRight", "diagUp", "center"], ["top", "left", "arcRight", "center"]],
+    ["expert-subtract-05", "expert", "subtract", ["roofLeft", "roofRight", "middleH", "middleV", "diagDown", "diagUp", "arcLeft", "arcRight", "bowlLeft", "bowlRight", "center"], ["roofRight", "middleV", "diagUp", "bowlLeft", "center"]],
+    ["expert-subtract-06", "expert", "subtract", ["top", "right", "bottom", "left", "middleH", "middleV", "diagDown", "diagUp", "roofLeft", "roofRight", "center", "bowlRight"], ["right", "middleV", "diagDown", "roofLeft", "center"]],
   ];
 
   const QUESTIONS = Object.freeze(
@@ -669,7 +705,7 @@
     }
 
     if (
-      !["easy", "medium", "hard", "challenge"].includes(question.difficulty)
+      !["easy", "medium", "hard", "challenge", "expert"].includes(question.difficulty)
     ) {
       errors.push(`${question.id || "未知題目"}的難度無效`);
     }
