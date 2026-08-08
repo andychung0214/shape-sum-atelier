@@ -49,19 +49,11 @@ test("五個難度各有指定題數與加減分布", () => {
   }
 });
 
-test("專家難度可正規化並篩選十二題", () => {
-  const normalized = stateApi.normalizeState(
-    { difficulty: "expert", operator: "all" },
-    core.QUESTIONS.map((q) => q.id),
-  );
-  assert.equal(normalized.difficulty, "expert");
-  assert.equal(stateApi.filterQuestions(core.QUESTIONS, normalized).length, 12);
-});
 ```
 
 - [ ] **Step 2: Run RED**
 
-Run `node tests/run-tests.js`. Expected failure: 80 vs 116 題、既有難度 20 vs 26 題、expert 0 題，且 expert 狀態回到 `all`。
+Run `node tests/run-tests.js`. Expected failure: 80 vs 116 題、既有難度 20 vs 26 題，且尚未有 expert 題目。
 
 - [ ] **Step 3: Append 24 existing-difficulty questions**
 
@@ -101,7 +93,7 @@ Change the core difficulty allowlist to `["easy", "medium", "hard", "challenge",
 
 - [ ] **Step 5: Run GREEN**
 
-Run `node tests/run-tests.js`; expected 116 題、五難度精確分布、expert 篩選 12 題與 `validateBank()` 全數通過。
+Run `node tests/run-tests.js`; expected 116 題、五難度精確分布與 `validateBank()` 全數通過。expert 狀態篩選在 Task 2 驗證。
 
 - [ ] **Step 6: Commit**
 
@@ -115,6 +107,21 @@ git commit -m "feat: 新增專家難度並擴充圖形題庫"
 **Files:** `tests/run-tests.js`, `js/state.js`, `js/app.js`, `index.html`, `tests/browser-smoke.html`
 
 - [ ] **Step 1: Write failing UI contracts**
+
+先在本任務加入 expert 狀態行為測試：
+
+```js
+test("專家難度可正規化並篩選十二題", () => {
+  const normalized = stateApi.normalizeState(
+    { difficulty: "expert", operator: "all" },
+    core.QUESTIONS.map((q) => q.id),
+  );
+  assert.equal(normalized.difficulty, "expert");
+  assert.equal(stateApi.filterQuestions(core.QUESTIONS, normalized).length, 12);
+});
+```
+
+再加入既有 HTML／app／smoke 契約：
 
 ```js
 assert.match(indexHtml, /<option value="expert">專家<\/option>/);
