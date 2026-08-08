@@ -18,6 +18,7 @@
     "medium",
     "hard",
     "challenge",
+    "expert",
   ]);
   const OPERATORS = new Set(["all", "add", "subtract"]);
 

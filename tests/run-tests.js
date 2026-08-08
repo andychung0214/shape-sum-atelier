@@ -199,6 +199,15 @@ test("挑戰難度可正規化、篩選並保留二十六題", () => {
   );
 });
 
+test("專家難度可正規化並篩選十二題", () => {
+  const normalized = stateApi.normalizeState(
+    { difficulty: "expert", operator: "all" },
+    core.QUESTIONS.map((q) => q.id),
+  );
+  assert.equal(normalized.difficulty, "expert");
+  assert.equal(stateApi.filterQuestions(core.QUESTIONS, normalized).length, 12);
+});
+
 test("進度只計算目前題目中的已揭曉題目", () => {
   assert.deepEqual(
     stateApi.calculateProgress([{ id: "a" }, { id: "b" }], ["a", "ghost"]),
@@ -219,6 +228,7 @@ test("HTML 提供主要內容、篩選、題庫與無 JavaScript 提示", () => 
   assert.match(indexHtml, /id="question-grid"/);
   assert.match(indexHtml, /id="difficulty-filter"/);
   assert.match(indexHtml, /<option value="challenge">挑戰<\/option>/);
+  assert.match(indexHtml, /<option value="expert">專家<\/option>/);
   assert.match(indexHtml, /id="operator-filter"/);
   assert.match(indexHtml, /<noscript>/);
 });
@@ -239,6 +249,7 @@ test("應用程式同步翻牌無障礙狀態並使用版本化儲存鍵", () =>
   assert.match(appJs, /class="equation"\s+role="group"/);
   assert.match(appJs, /shape-sum-atelier-state-v1/);
   assert.match(appJs, /challenge:\s*"挑戰"/);
+  assert.match(appJs, /expert:\s*"專家"/);
   assert.match(appJs, /validateBank/);
   assert.match(appJs, /try\s*{/);
 });
@@ -313,12 +324,13 @@ test("提供可執行的瀏覽器整合冒煙測試", () => {
   assert.match(smokeTest, /data-status/);
   assert.match(smokeTest, /aria-expanded/);
   assert.match(smokeTest, /difficulty-filter/);
-  assert.match(smokeTest, /value\s*=\s*"challenge"/);
-  assert.match(smokeTest, /length\s*===\s*80/);
-  assert.match(smokeTest, /length\s*===\s*20/);
-  assert.match(smokeTest, /length\s*===\s*10/);
+  assert.match(smokeTest, /value\s*=\s*"expert"/);
+  assert.match(smokeTest, /length\s*===\s*116/);
+  assert.match(smokeTest, /length\s*===\s*12/);
+  assert.match(smokeTest, /length\s*===\s*6/);
+  assert.match(smokeTest, /expert-subtract-01/);
   assert.match(smokeTest, /operator\.value\s*=\s*"subtract"/);
-  assert.match(smokeTest, /挑戰減法篩選不是 10 題/);
+  assert.match(smokeTest, /專家減法篩選不是 6 題/);
   assert.match(
     smokeTest,
     /localStorage\.removeItem\(\s*"shape-sum-atelier-state-v1"/,
