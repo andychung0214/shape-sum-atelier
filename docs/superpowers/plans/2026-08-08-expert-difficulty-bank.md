@@ -67,7 +67,7 @@ medium-subtract-11 [top,right,bottom,middleH]-[right,middleH]; medium-subtract-1
 hard-add-11 [top,right,bottom,diagDown]+[left,middleH,diagUp,center]; hard-add-12 [arcLeft,arcRight,bowlLeft,center]+[arcRight,bowlRight,diagUp,middleV]; hard-add-13 [roofLeft,roofRight,left,middleH]+[right,bottom,diagDown,center]
 hard-subtract-11 [top,right,bottom,left,diagDown,middleV,center]-[right,diagDown,center]; hard-subtract-12 [arcLeft,arcRight,bowlLeft,bowlRight,middleH,diagUp]-[arcRight,bowlLeft]; hard-subtract-13 [roofLeft,roofRight,top,bottom,middleV,diagDown,center]-[roofLeft,middleV,center]
 challenge-add-11 [top,right,bottom,left,diagDown,center]+[top,right,middleH,diagUp,center]; challenge-add-12 [arcLeft,arcRight,bowlLeft,bowlRight,middleV,center]+[arcLeft,bowlLeft,middleH,diagDown,center]; challenge-add-13 [roofLeft,roofRight,left,right,middleV,diagUp]+[roofLeft,right,bottom,middleH,diagDown,diagUp]
-challenge-subtract-11 [top,right,bottom,left,middleH,middleV,diagDown,diagUp,center]-[middleH,diagUp,center]; challenge-subtract-12 [arcLeft,arcRight,bowlLeft,bowlRight,middleH,middleV,diagDown,diagUp,center]-[arcLeft,bowlRight,middleV,diagUp]; challenge-subtract-13 [roofLeft,roofRight,top,right,bottom,left,middleH,middleV,center]-[roofRight,right,middleH,center]
+challenge-subtract-11 [top,right,bottom,left,middleH,middleV,diagDown,diagUp,center,roofLeft]-[middleH,diagUp,center]; challenge-subtract-12 [arcLeft,arcRight,bowlLeft,bowlRight,middleH,middleV,diagDown,diagUp,center]-[arcLeft,bowlRight,middleV,diagUp]; challenge-subtract-13 [roofLeft,roofRight,top,right,bottom,left,middleH,middleV,center]-[roofRight,right,middleH,center]
 ```
 
 - [ ] **Step 4: Append 12 expert questions and extend validation**

@@ -655,7 +655,7 @@
     ["challenge-add-11", "challenge", "add", ["top", "right", "bottom", "left", "diagDown", "center"], ["top", "right", "middleH", "diagUp", "center"]],
     ["challenge-add-12", "challenge", "add", ["arcLeft", "arcRight", "bowlLeft", "bowlRight", "middleV", "center"], ["arcLeft", "bowlLeft", "middleH", "diagDown", "center"]],
     ["challenge-add-13", "challenge", "add", ["roofLeft", "roofRight", "left", "right", "middleV", "diagUp"], ["roofLeft", "right", "bottom", "middleH", "diagDown", "diagUp"]],
-    ["challenge-subtract-11", "challenge", "subtract", ["top", "right", "bottom", "left", "middleH", "middleV", "diagDown", "diagUp", "center"], ["middleH", "diagUp", "center"]],
+    ["challenge-subtract-11", "challenge", "subtract", ["top", "right", "bottom", "left", "middleH", "middleV", "diagDown", "diagUp", "center", "roofLeft"], ["middleH", "diagUp", "center"]],
     ["challenge-subtract-12", "challenge", "subtract", ["arcLeft", "arcRight", "bowlLeft", "bowlRight", "middleH", "middleV", "diagDown", "diagUp", "center"], ["arcLeft", "bowlRight", "middleV", "diagUp"]],
     ["challenge-subtract-13", "challenge", "subtract", ["roofLeft", "roofRight", "top", "right", "bottom", "left", "middleH", "middleV", "center"], ["roofRight", "right", "middleH", "center"]],
     ["expert-add-01", "expert", "add", ["top", "right", "bottom", "left", "middleH", "diagDown", "center"], ["top", "right", "middleV", "diagUp", "center", "roofLeft"]],

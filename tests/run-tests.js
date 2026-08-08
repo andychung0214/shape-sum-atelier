@@ -83,6 +83,25 @@ test("每個難度都有指定題數與加減法分布", () => {
   }
 });
 
+test("題庫不包含標準化後相同的運算式", () => {
+  const equationIds = new Map();
+
+  for (const question of core.QUESTIONS) {
+    const sides = [question.left, question.right].map((segments) =>
+      [...segments].sort().join(","),
+    );
+    if (question.operator === "add") sides.sort();
+
+    const equationKey = [question.operator, ...sides].join("|");
+    assert.equal(
+      equationIds.has(equationKey),
+      false,
+      `${question.id} 與 ${equationIds.get(equationKey)} 的運算式重複`,
+    );
+    equationIds.set(equationKey, question.id);
+  }
+});
+
 test("完整題庫通過一致性驗證", () => {
   assert.deepEqual(core.validateBank(core.QUESTIONS), []);
 });
